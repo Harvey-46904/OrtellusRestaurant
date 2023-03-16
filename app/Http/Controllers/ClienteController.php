@@ -15,6 +15,8 @@ class ClienteController extends Controller
     public function index()
     {
         //
+
+        return response(["data"=>"Hola mundo"]);
     }
 
     /**
@@ -22,10 +24,7 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -55,10 +54,6 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cliente $cliente)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
