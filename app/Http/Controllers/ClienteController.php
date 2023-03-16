@@ -14,9 +14,9 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+       $consulta=Cliente::all();
 
-        return response(["data"=>"Hola mundo"]);
+        return response(["data"=>$consulta]);
     }
 
     /**
@@ -34,7 +34,14 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $guardar_cliente=new Cliente;
+        $guardar_cliente->Nombre_Completo=$request->Nombre_Completo;
+        $guardar_cliente->Cedula=$request->Cedula;
+        $guardar_cliente->Telefono=$request->Telefono;
+        $guardar_cliente->Email=$request->Email;
+        $guardar_cliente->Direccion=$request->Direccion;
+        $guardar_cliente->save();
+        return response(["data"=>"guardado exitosamente"]);
     }
 
     /**
