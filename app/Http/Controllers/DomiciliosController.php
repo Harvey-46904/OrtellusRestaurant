@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\restaurante;
+use App\Models\domicilios;
 use Illuminate\Http\Request;
 
-class RestauranteController extends Controller
+class DomiciliosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class RestauranteController extends Controller
      */
     public function create()
     {
-        //no crear archivo
+        //
     }
 
     /**
@@ -41,10 +41,10 @@ class RestauranteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\restaurante  $restaurante
+     * @param  \App\Models\domicilios  $domicilios
      * @return \Illuminate\Http\Response
      */
-    public function show(restaurante $restaurante)
+    public function show(domicilios $domicilios)
     {
         //
     }
@@ -52,22 +52,22 @@ class RestauranteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\restaurante  $restaurante
+     * @param  \App\Models\domicilios  $domicilios
      * @return \Illuminate\Http\Response
      */
-    public function edit(restaurante $restaurante)
+    public function edit(domicilios $domicilios)
     {
-        //no cerar archivo
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\restaurante  $restaurante
+     * @param  \App\Models\domicilios  $domicilios
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, restaurante $restaurante)
+    public function update(Request $request, domicilios $domicilios)
     {
         //
     }
@@ -75,10 +75,10 @@ class RestauranteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\restaurante  $restaurante
+     * @param  \App\Models\domicilios  $domicilios
      * @return \Illuminate\Http\Response
      */
-    public function destroy(restaurante $restaurante)
+    public function destroy(domicilios $domicilios)
     {
         //
     }
