@@ -15,6 +15,11 @@ class CreateDomiciliosTable extends Migration
     {
         Schema::create('domicilios', function (Blueprint $table) {
             $table->id();
+            $table->string("nombre");
+            $table->string("direccion_domicilio");
+            $table->integer("numero_factura");
+            $table->date("feha_domicilio");
+            $table->string("tipo_comida");
             $table->timestamps();
         });
     }

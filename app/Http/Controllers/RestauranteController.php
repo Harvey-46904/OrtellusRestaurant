@@ -15,6 +15,8 @@ class RestauranteController extends Controller
     public function index()
     {
         //
+        $consulta = restaurante::all();
+        return response (["data"=> $consulta]);
     }
 
     /**
@@ -35,7 +37,11 @@ class RestauranteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $guardar_restaurante=new restaurante;
+        $guardar_restaurante->nombre=$request->nombre;
+        $guardar_restaurante->direccion=$request->direccion;
+        $guardar_restaurante->save();
+        return response (["data"=>"registro guardado exitosamente"]);
     }
 
     /**

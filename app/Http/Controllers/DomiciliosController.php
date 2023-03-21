@@ -14,7 +14,8 @@ class DomiciliosController extends Controller
      */
     public function index()
     {
-        //
+        $consultar = domicilios::all();
+        return response (["data"=>$consultar]);
     }
 
     /**
@@ -35,7 +36,14 @@ class DomiciliosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $guardar_domicilio=new domicilios();
+        $guardar_domicilio->nombre=$request->nombre;
+        $guardar_domicilio->direccion_domicilio=$request->direccion_domicilio;
+        $guardar_domicilio->numero_factura=$request->numero_factura;
+        $guardar_domicilio->feha_domicilio=$request->feha_domicilio;
+        $guardar_domicilio->tipo_comida=$request->tipo_comida;
+        $guardar_domicilio->save();
+        return response (["data"=>"registro guardado"]);
     }
 
     /**

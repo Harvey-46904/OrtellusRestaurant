@@ -14,7 +14,8 @@ class EmpleadosController extends Controller
      */
     public function index()
     {
-        //
+        $consulta = empleados::all();
+        return resopnse (["data"=>$consulta]);
     }
 
     /**
@@ -35,7 +36,16 @@ class EmpleadosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $guardar_empleados = new empleados;
+        $guardar_empleados->nombre=$request->nombre;
+        $guardar_empleados->cedula=$request->cedula;
+        $guardar_empleados->telefono=$request->telefono;
+        $guardar_empleados->cargo=$request->cargo;
+        $guardar_empleados->direccion=$request->direccion;
+        $guardar_empleados->email=$request->email;
+        $guardar_empleados->fecha_ingreso=$request->fecha_ingreso;
+        $guardar_empleados->save();
+        return response (["data"=>"registro guardado exitosamente"]);
     }
 
     /**

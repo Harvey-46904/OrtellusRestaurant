@@ -14,7 +14,9 @@ class PedidosController extends Controller
      */
     public function index()
     {
-        //
+        $consulta= pedidos::all();
+        return response (["data"=>$consulta]);
+
     }
 
     /**
@@ -35,7 +37,20 @@ class PedidosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $guardar_pedido= new pedidos();
+        $guardar_pedido->nombre_pedido=$request->nombre_pedido;
+        $guardar_pedido->fecha_pedido=$request->fecha_pedido;
+        $guardar_pedido->precio=$request->precio;
+        $guardar_pedido->descuento=$request->descuento;
+        $guardar_pedido->envio=$request->envio;
+        $guardar_pedido->tipo_pago=$request->tipo_pago;
+        $guardar_pedido->estado=$request->estado;
+        $guardar_pedido->direccion=$request->direccion;
+        $guardar_pedido->telefono=$request->telefono;
+        $guardar_pedido->descripcion=$request->descripcion;
+        $guardar_pedido->save();
+        return response (["data"=>"registro gusrdado exitosamente"]);
+
     }
 
     /**
