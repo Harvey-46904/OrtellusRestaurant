@@ -59,9 +59,10 @@ class PedidosController extends Controller
      * @param  \App\Models\pedidos  $pedidos
      * @return \Illuminate\Http\Response
      */
-    public function show(pedidos $pedidos)
+    public function show($pedidos)
     {
-        //
+        $pedidos=pedidos::findOrFail($pedidos);
+        return response (["data"=>$pedidos]);
     }
 
     /**
@@ -72,7 +73,8 @@ class PedidosController extends Controller
      */
     public function edit(pedidos $pedidos)
     {
-        //
+        $pedidos=pedidos::findOrFail($pedidos);
+        return response (["data"=>"datos actualizados"]);
     }
 
     /**
@@ -82,9 +84,22 @@ class PedidosController extends Controller
      * @param  \App\Models\pedidos  $pedidos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pedidos $pedidos)
+    public function update(Request $request, $pedidos)
     {
         //
+        $pedidos=pedidos::findOrFail($pedidos);
+        $pedidos->nombre_pedido=$request->nombre_pedido;
+        $pedidos->fecha_pedido=$request->fecha_pedido;
+        $pedidos->precio=$request->precio;
+        $pedidos->descuento=$request->descuento;
+        $pedidos->envio=$request->envio;
+        $pedidos->tipo_pago=$request->tipo_pago;
+        $pedidos->estado=$request->estado;
+        $pedidos->direccion=$request->direccion;
+        $pedidos->telefono=$request->telefono;
+        $pedidos->descripcion=$request->descripcion;
+        $pedidos->save();
+        return response (["data"=>"datos actualizados"]);
     }
 
     /**
@@ -93,8 +108,10 @@ class PedidosController extends Controller
      * @param  \App\Models\pedidos  $pedidos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pedidos $pedidos)
+    public function destroy($pedidos)
     {
-        //
+        $pedidos=pedidos::findOrFail($pedidos);
+        $pedidos->delete();
+        return response (["data"=>"datos eliminados"]);
     }
 }

@@ -52,9 +52,10 @@ class DomiciliosController extends Controller
      * @param  \App\Models\domicilios  $domicilios
      * @return \Illuminate\Http\Response
      */
-    public function show(domicilios $domicilios)
+    public function show($domicilios)
     {
-        //
+        $domicilios=domicilios::findOrFail($domicilios);
+        return response (["data"=>"dato buscado"]);
     }
 
     /**
@@ -75,9 +76,16 @@ class DomiciliosController extends Controller
      * @param  \App\Models\domicilios  $domicilios
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, domicilios $domicilios)
+    public function update(Request $request, $domicilios)
     {
-        //
+        $domicilios=domicilios::findOrFail($domicilios);
+        $domicilios->nombre=$request->nombre;
+        $domicilios->direccion_domicilio=$request->direccion_domicilio;
+        $domicilios->numero_factura=$request->numero_factura;
+        $domicilios->feha_domicilio=$request->feha_domicilio;
+        $domicilios->tipo_comida=$request->tipo_comida;
+        $domicilios->save();
+        return response (["data"=>"registro actualizado"]);
     }
 
     /**
@@ -86,8 +94,10 @@ class DomiciliosController extends Controller
      * @param  \App\Models\domicilios  $domicilios
      * @return \Illuminate\Http\Response
      */
-    public function destroy(domicilios $domicilios)
+    public function destroy($domicilios)
     {
-        //
+        $domicilios=domicilios::findOrFail($domicilios);
+        $domicilios->delete();
+        return response (["data"=>"registro eliminado"]);
     }
 }

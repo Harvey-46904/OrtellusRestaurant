@@ -54,9 +54,12 @@ class EmpleadosController extends Controller
      * @param  \App\Models\empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function show(empleados $empleados)
+    public function show($empleados)
     {
-        //
+        //show significa buscar, encontrar 
+        $empleados=empleados::findOrFail($empleados);
+        return response (["data"=>$empleados]);
+
     }
 
     /**
@@ -65,9 +68,10 @@ class EmpleadosController extends Controller
      * @param  \App\Models\empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function edit(empleados $empleados)
+    public function edit($empleados)
     {
-        //
+        $empleados=empleados::findOrFail($empleados);
+        return response (["data"=>"datos actualizados"]);
     }
 
     /**
@@ -77,9 +81,23 @@ class EmpleadosController extends Controller
      * @param  \App\Models\empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, empleados $empleados)
+    public function update(Request $request, $empleados)
     {
-        //
+        //actualizar
+        $empleados=empleados::findOrfail($empleados);
+        $empleados->nombre=$request->nombre;
+        $empleados->cedula=$request->cedula;
+        $empleados->telefono=$request->telefono;
+        $empleados->cargo=$request->cargo;
+        $empleados->direccion=$request->direccion;
+        $empleados->email=$request->email;
+        $empleados->fecha_ingreso=$request->fecha_ingreso;
+        $empleados->save();
+        return response (["data"=>"datos actualizados"]);
+
+
+
+
     }
 
     /**
@@ -88,8 +106,10 @@ class EmpleadosController extends Controller
      * @param  \App\Models\empleados  $empleados
      * @return \Illuminate\Http\Response
      */
-    public function destroy(empleados $empleados)
+    public function destroy($empleados)
     {
-        //
+        $empleados=empleados::findOrfail($empleados);
+        $empleados->delete();
+        return response (["data"=>"datos eliminados"]);
     }
 }

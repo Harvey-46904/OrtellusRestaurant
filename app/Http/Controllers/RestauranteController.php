@@ -61,9 +61,10 @@ class RestauranteController extends Controller
      * @param  \App\Models\restaurante  $restaurante
      * @return \Illuminate\Http\Response
      */
-    public function edit(restaurante $restaurante)
+    public function edit($restaurante)
     {
-        //no cerar archivo
+        $restaurante=aves::findOrFail($restaurante);
+        return response (["data"=>"datos editados"]);
     }
 
     /**
@@ -73,9 +74,14 @@ class RestauranteController extends Controller
      * @param  \App\Models\restaurante  $restaurante
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, restaurante $restaurante)
+    public function update(Request $request, $restaurante)
     {
-        //
+            $restaurante=restaurante::FindOrFail($aves);
+            $restaurante->nombre=$request->nombre;
+            $restaurante->direccion=$request->direccion;
+            $restaurante->save();
+            return response (["data"=>"dato actualizado automaticamente"]);
+
     }
 
     /**
@@ -84,8 +90,10 @@ class RestauranteController extends Controller
      * @param  \App\Models\restaurante  $restaurante
      * @return \Illuminate\Http\Response
      */
-    public function destroy(restaurante $restaurante)
+    public function destroy($restaurante)
     {
-        //
+        $restaurante=restaurante::findOrFail($restaurante);
+        $restaurante->delete();
+        return response (["data"=>"dato eliminado"]);
     }
 }
