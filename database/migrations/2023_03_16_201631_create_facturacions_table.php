@@ -15,7 +15,13 @@ class CreateFacturacionsTable extends Migration
     {
         Schema::create('facturacions', function (Blueprint $table) {
             $table->id();
+            $table->integer("Factura");
+            $table->integer("Cliente");
+            $table->string("Producto");
             $table->timestamps();
+            $guardar_facturacions->save();
+            return response(["data"=>"Guardado exitosamente"]);
+            
         });
     }
 
