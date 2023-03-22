@@ -19,4 +19,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::resource('cliente','ClienteController',['except'=>['create','edit']]);
 Route::resource('restaurantes','RestauranteController',['except'=>['create','edit']]);
+Route::resource('domicilio','DomiciliosController',['except'=>['create','edit']]);
+Route::resource('empleado','EmpleadosController',['except'=>['create','edit']]);
+Route::resource('factura','FacturacionController',['except'=>['create','edit']]);
+Route::resource('mesa','MesasController',['except'=>['create','edit']]);
+Route::resource('pedido','PedidosController',['except'=>['create','edit']]);
+Route::resource('producto','ProductosController',['except'=>['create','edit']]);
+
 

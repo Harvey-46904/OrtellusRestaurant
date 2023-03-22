@@ -79,7 +79,7 @@ class ClienteController extends Controller
         $actualizar_cliente->Email=$request->Email;
         $actualizar_cliente->Direccion=$request->Direccion;
         $actualizar_cliente->save();
-        return response(["data"=>cliente]);
+        return response(["data"=>"datos actualizados"]);
     }
 
     /**

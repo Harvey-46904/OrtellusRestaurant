@@ -50,9 +50,10 @@ class RestauranteController extends Controller
      * @param  \App\Models\restaurante  $restaurante
      * @return \Illuminate\Http\Response
      */
-    public function show(restaurante $restaurante)
+    public function show($restaurante)
     {
-        //
+        $consulta=restaurante::findOrFail($restaurante);
+        return response (["data"=>$consulta]);
     }
 
     /**
@@ -61,12 +62,12 @@ class RestauranteController extends Controller
      * @param  \App\Models\restaurante  $restaurante
      * @return \Illuminate\Http\Response
      */
-    public function edit($restaurante)
+    /*public function edit($restaurante)
     {
         $restaurante=aves::findOrFail($restaurante);
         return response (["data"=>"datos editados"]);
     }
-
+    */
     /**
      * Update the specified resource in storage.
      *
@@ -76,11 +77,11 @@ class RestauranteController extends Controller
      */
     public function update(Request $request, $restaurante)
     {
-            $restaurante=restaurante::FindOrFail($aves);
+            $restaurante=restaurante::FindOrFail($restaurante);
             $restaurante->nombre=$request->nombre;
             $restaurante->direccion=$request->direccion;
             $restaurante->save();
-            return response (["data"=>"dato actualizado automaticamente"]);
+            return response (["data"=>"datos actualizados"]);
 
     }
 

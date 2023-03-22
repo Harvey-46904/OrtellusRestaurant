@@ -15,7 +15,7 @@ class EmpleadosController extends Controller
     public function index()
     {
         $consulta = empleados::all();
-        return resopnse (["data"=>$consulta]);
+        return response (["data"=>$consulta]);
     }
 
     /**

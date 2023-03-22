@@ -55,7 +55,7 @@ class DomiciliosController extends Controller
     public function show($domicilios)
     {
         $domicilios=domicilios::findOrFail($domicilios);
-        return response (["data"=>"dato buscado"]);
+        return response (["data"=>$domicilios]);
     }
 
     /**
@@ -78,6 +78,7 @@ class DomiciliosController extends Controller
      */
     public function update(Request $request, $domicilios)
     {
+        
         $domicilios=domicilios::findOrFail($domicilios);
         $domicilios->nombre=$request->nombre;
         $domicilios->direccion_domicilio=$request->direccion_domicilio;

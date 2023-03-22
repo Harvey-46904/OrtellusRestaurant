@@ -14,7 +14,8 @@ class MesasController extends Controller
      */
     public function index()
     {
-        //
+        $consultar=Mesas::all();
+        return response (["data"=>$consultar]);
     }
 
     /**
@@ -35,7 +36,7 @@ class MesasController extends Controller
      */
     public function store(Request $request)
     {
-        $guardar_mesa=new Mesa;
+        $guardar_mesa=new Mesas;
         $guardar_mesa->Disponibilidad_mesa=$request->Disponibilidad_mesa;
         $guardar_mesa->Registrar_mesa=$request->Registrar_mesa;
         $guardar_mesa->Observacion=$request->Observacion;
@@ -49,9 +50,10 @@ class MesasController extends Controller
      * @param  \App\Models\Mesas  $mesas
      * @return \Illuminate\Http\Response
      */
-    public function show(Mesas $mesas)
+    public function show($mesas)
     {
-        //
+        $consultar=Mesas::findOrFail($mesas);
+        return response (["data"=>"dato consultado"]);
     }
 
     /**
@@ -72,13 +74,14 @@ class MesasController extends Controller
      * @param  \App\Models\Mesas  $mesas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mesas $mesas)
+    public function update(Request $request, $mesas)
     {
-        $actualizar=$mesas;
-        $actualizar_mesa->Disponibilidad_mesa=$request->Disponibilidad_mesa;
-        $actualizar_mesa->Registrar_mesa=$request->Registrar_mesa;
-        $actualizar_mesa->Observacion=$request->Observacion;
-        $actualizaar->save();
+        $actualizar=Mesas::findOrFail($mesas);
+        $actualizar->Disponibilidad_mesa=$request->Disponibilidad_mesa;
+        $actualizar->Registrar_mesa=$request->Registrar_mesa;
+        $actualizar->Observacion=$request->Observacion;
+        $actualizar->save();
+        return response (["data"=>"dato actualizado"]);
     }
 
     /**
@@ -87,7 +90,7 @@ class MesasController extends Controller
      * @param  \App\Models\Mesas  $mesas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mesas $mesas)
+    public function destroy($mesas)
     {
         $mesas=mesas::findOrFail($mesas);
         $mesas->detele();

@@ -17,7 +17,7 @@ class CreateEmpleadosTable extends Migration
             $table->id();
             $table->string("nombre");
             $table->integer("cedula");
-            $table->integer("telefono");
+            $table->string("telefono");
             $table->string("cargo");
             $table->string("direccion");
             $table->string("email");

@@ -14,12 +14,8 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        $guardar_productos=new Productos;
-        $guardar_productos->Nombre_producto=$request->Nombre_producto;
-        $guardar_productos->Fecha_producto=$request->Fecha_producto;
-        $guardar_productos->Descripcion_producto=$request->Descripcion_producto;
-        $guardar_productos->save();
-        return response(["data"=>"guardado exitosamente"]);
+       $consulta=Productos::all();
+       return response (["data"=>$consulta]);
     }
 
     /**
@@ -40,7 +36,12 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $guardar_productos=new Productos;
+        $guardar_productos->Nombre_producto=$request->Nombre_producto;
+        $guardar_productos->Fecha_producto=$request->Fecha_producto;
+        $guardar_productos->Descripcion_producto=$request->Descripcion_producto;
+        $guardar_productos->save();
+        return response(["data"=>"guardado exitosamente"]);
     }
 
     /**
@@ -49,9 +50,10 @@ class ProductosController extends Controller
      * @param  \App\Models\Productos  $productos
      * @return \Illuminate\Http\Response
      */
-    public function show(Productos $productos)
+    public function show($productos)
     {
-        //
+        $consulta=Productos::findOrFail($productos);
+        return response (["data"=>"dato buscado"]);
     }
 
     /**
@@ -72,11 +74,14 @@ class ProductosController extends Controller
      * @param  \App\Models\Productos  $productos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Productos $productos)
+    public function update(Request $request, $productos)
     {
         $actualizar=$productos;
+        $actualizar->Nombre_producto=$request->Nombre_producto;
+        $actualizar->Fecha_producto=$request->Fecha_producto;
         $actualizar->Descripcion=$request->Descripcion;
         $actualizar->save();
+        return response (["data"=>"datos actualizados"]);
     }
 
     /**
@@ -85,7 +90,7 @@ class ProductosController extends Controller
      * @param  \App\Models\Productos  $productos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Productos $productos)
+    public function destroy($productos)
     {
         $productos=productos::findOrFail($productos);
         $productos->detele();

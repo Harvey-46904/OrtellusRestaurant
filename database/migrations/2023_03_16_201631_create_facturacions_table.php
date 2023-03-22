@@ -15,9 +15,10 @@ class CreateFacturacionsTable extends Migration
     {
         Schema::create('facturacions', function (Blueprint $table) {
             $table->id();
-            $table->integer("Factura");
-            $table->integer("Cliente");
+            $table->string("Cliente");
             $table->string("Producto");
+            $table->integer("total");
+            $table->string("mesa");
             $table->timestamps();
             
            

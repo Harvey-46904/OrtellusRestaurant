@@ -14,12 +14,8 @@ class FacturacionController extends Controller
      */
     public function index()
     {
-        $guardar_facturacion=new Facturacion;
-        $guardar_facturacion->Nombre_producto=$request->Nombre_producto;
-        $guardar_facturacion->Fecha_producto=$request->Fecha_producto;
-        $guardar_facturacion->Descripcion_producto=$request->Descripcion_producto;
-        $guardar_facturacion->save();
-        return response(["data"=>"guardado exitosamente"]);
+        $consulta=Facturacion::all();
+        return response (["data"=>$consulta]);
     }
 
     /**
@@ -40,7 +36,13 @@ class FacturacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $guardar_facturacion=new Facturacion;
+        $guardar_facturacion->Cliente=$request->Cliente;
+        $guardar_facturacion->Producto=$request->Producto;
+        $guardar_facturacion->total=$request->total;
+        $guardar_facturacion->mesa=$request->mesa;
+        $guardar_facturacion->save();
+        return response(["data"=>"guardado exitosamente"]);
     }
 
     /**
@@ -49,10 +51,11 @@ class FacturacionController extends Controller
      * @param  \App\Models\Facturacion  $facturacion
      * @return \Illuminate\Http\Response
      */
-    public function show(Facturacion $facturacion)
+    public function show($facturacion)
     {
-        //
-    }
+        $facturacion=Facturacion::findOrFail($facturacion);
+        return response (["data"=>"dato buscado"]);
+        }
 
     /**
      * Show the form for editing the specified resource.
@@ -72,13 +75,15 @@ class FacturacionController extends Controller
      * @param  \App\Models\Facturacion  $facturacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Facturacion $facturacion)
+    public function update(Request $request, $facturacion)
     {
-        $actualizar=$productos;
-        $actualizar_facturacion->Nombre_producto=$request->Nombre_producto;
-        $actualizar_facturacion->Fecha_producto=$request->Fecha_producto;
-        $actualizar_facturacion->Descripcion_producto=$request->Descripcion_producto;
+        $actualizar=Facturacion::findOrFail($facturacion);
+        $actualizar->Cliente=$request->Cliente;
+        $actualizar->Producto=$request->Producto;
+        $actualizar->total=$request->total;
+        $actualizar->mesa=$request->mesa;
         $actualizar->save();
+        return response (["data"=>"datos actualizados"]);
     }
 
     /**
@@ -87,9 +92,9 @@ class FacturacionController extends Controller
      * @param  \App\Models\Facturacion  $facturacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Facturacion $facturacion)
+    public function destroy($facturacion)
     {
-        $facturacion=facturacion::findOrFail($facturacion);
+        $facturacion=Facturacion::findOrFail($facturacion);
         $facturacion->detele();
         return response(["data"=> "Eliminado exitosamente"]);
     }
