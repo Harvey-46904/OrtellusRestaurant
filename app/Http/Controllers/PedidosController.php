@@ -71,12 +71,12 @@ class PedidosController extends Controller
      * @param  \App\Models\pedidos  $pedidos
      * @return \Illuminate\Http\Response
      */
-    public function edit(pedidos $pedidos)
+   /* public function edit(pedidos $pedidos)
     {
         $pedidos=pedidos::findOrFail($pedidos);
         return response (["data"=>"datos actualizados"]);
     }
-
+    */
     /**
      * Update the specified resource in storage.
      *

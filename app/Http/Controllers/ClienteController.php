@@ -50,9 +50,10 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function show(Cliente $cliente)
+    public function show($cliente)
     {
-        //
+        $cliente=Cliente::findOrFail($cliente);
+        return response (["data"=>"dato buscado"]);
     }
 
     /**
@@ -69,15 +70,15 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, $cliente)
     {
-        $actualizar=$cliente;
+        $actualizar_cliente=$cliente;
         $actualizar_cliente->Nombre_Completo=$request->Nombre_Completo;
         $actualizar_cliente->Cedula=$request->Cedula;
         $actualizar_cliente->Telefono=$request->Telefono;
         $actualizar_cliente->Email=$request->Email;
         $actualizar_cliente->Direccion=$request->Direccion;
-        $actualizar->save();
+        $actualizar_cliente->save();
         return response(["data"=>cliente]);
     }
 
@@ -87,7 +88,7 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cliente $cliente)
+    public function destroy($cliente)
     {
         $cliente=cliente::findOrFail($cliente);
         $cliente->detele();

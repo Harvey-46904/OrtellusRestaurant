@@ -19,8 +19,8 @@ class CreateMesasTable extends Migration
             $table->integer("Registrar_mesa");
             $table->string("Observacion");
             $table->timestamps();
-            $guardar_mesas->save();
-            return response(["data"=>"Guardado exitosamente"]);
+            
+           
         });
     }
 

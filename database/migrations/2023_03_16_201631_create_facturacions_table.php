@@ -19,8 +19,8 @@ class CreateFacturacionsTable extends Migration
             $table->integer("Cliente");
             $table->string("Producto");
             $table->timestamps();
-            $guardar_facturacions->save();
-            return response(["data"=>"Guardado exitosamente"]);
+            
+           
             
         });
     }

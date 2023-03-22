@@ -19,8 +19,8 @@ class CreateProductosTable extends Migration
             $table->fecdate("Fecha_producto");
             $table->string("Descripcion_producto");
             $table->timestamps();
-            $guardar_productos->save();
-            return response(["data"=>"Guardado exitosamente"]);
+           
+           
             
         });        
     }
