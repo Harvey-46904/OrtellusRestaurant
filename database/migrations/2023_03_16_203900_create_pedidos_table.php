@@ -23,7 +23,7 @@ class CreatePedidosTable extends Migration
             $table->string("tipo_pago");
             $table->string("estado");
             $table->string("direccion");
-            $table->integer("telefono");
+            $table->string("telefono");
             $table->string("descripcion");
 
             $table->timestamps();

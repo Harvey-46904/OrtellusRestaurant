@@ -53,7 +53,7 @@ class ClienteController extends Controller
     public function show($cliente)
     {
         $cliente=Cliente::findOrFail($cliente);
-        return response (["data"=>"dato buscado"]);
+        return response (["data"=>$cliente]);
     }
 
     /**
@@ -72,7 +72,9 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $cliente)
     {
-        $actualizar_cliente=$cliente;
+        
+        $actualizar_cliente=Cliente::findOrFail($cliente);
+        
         $actualizar_cliente->Nombre_Completo=$request->Nombre_Completo;
         $actualizar_cliente->Cedula=$request->Cedula;
         $actualizar_cliente->Telefono=$request->Telefono;
@@ -91,7 +93,7 @@ class ClienteController extends Controller
     public function destroy($cliente)
     {
         $cliente=cliente::findOrFail($cliente);
-        $cliente->detele();
+        $cliente->delete();
         return response(["data"=> "Eliminado exitosamente"]);
     }
 }

@@ -53,7 +53,7 @@ class MesasController extends Controller
     public function show($mesas)
     {
         $consultar=Mesas::findOrFail($mesas);
-        return response (["data"=>"dato consultado"]);
+        return response (["data"=>$consultar]);
     }
 
     /**
@@ -93,7 +93,7 @@ class MesasController extends Controller
     public function destroy($mesas)
     {
         $mesas=mesas::findOrFail($mesas);
-        $mesas->detele();
+        $mesas->delete();
         return response(["data"=> "Eliminado exitosamente"]);
     }
 }

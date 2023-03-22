@@ -54,7 +54,7 @@ class FacturacionController extends Controller
     public function show($facturacion)
     {
         $facturacion=Facturacion::findOrFail($facturacion);
-        return response (["data"=>"dato buscado"]);
+        return response (["data"=>$facturacion]);
         }
 
     /**
@@ -95,7 +95,7 @@ class FacturacionController extends Controller
     public function destroy($facturacion)
     {
         $facturacion=Facturacion::findOrFail($facturacion);
-        $facturacion->detele();
+        $facturacion->delete();
         return response(["data"=> "Eliminado exitosamente"]);
     }
 }

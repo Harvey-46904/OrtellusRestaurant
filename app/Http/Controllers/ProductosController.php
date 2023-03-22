@@ -53,7 +53,7 @@ class ProductosController extends Controller
     public function show($productos)
     {
         $consulta=Productos::findOrFail($productos);
-        return response (["data"=>"dato buscado"]);
+        return response (["data"=>$consulta]);
     }
 
     /**
@@ -76,10 +76,10 @@ class ProductosController extends Controller
      */
     public function update(Request $request, $productos)
     {
-        $actualizar=$productos;
+        $actualizar=Productos::findOrFail($productos);
         $actualizar->Nombre_producto=$request->Nombre_producto;
         $actualizar->Fecha_producto=$request->Fecha_producto;
-        $actualizar->Descripcion=$request->Descripcion;
+        $actualizar->Descripcion_producto=$request->Descripcion_producto;
         $actualizar->save();
         return response (["data"=>"datos actualizados"]);
     }
@@ -93,7 +93,7 @@ class ProductosController extends Controller
     public function destroy($productos)
     {
         $productos=productos::findOrFail($productos);
-        $productos->detele();
+        $productos->delete();
         return response(["data"=> "Eliminado exitosamente"]);
     }
 }
