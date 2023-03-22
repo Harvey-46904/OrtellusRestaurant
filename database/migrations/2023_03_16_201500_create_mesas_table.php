@@ -15,7 +15,12 @@ class CreateMesasTable extends Migration
     {
         Schema::create('mesas', function (Blueprint $table) {
             $table->id();
+            $table->string("Disponibilidad_mesa");
+            $table->integer("Registrar_mesa");
+            $table->string("Observacion");
             $table->timestamps();
+            $guardar_mesas->save();
+            return response(["data"=>"Guardado exitosamente"]);
         });
     }
 

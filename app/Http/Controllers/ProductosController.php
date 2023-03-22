@@ -14,7 +14,12 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        //
+        $guardar_productos=new Productos;
+        $guardar_productos->Nombre_producto=$request->Nombre_producto;
+        $guardar_productos->Fecha_producto=$request->Fecha_producto;
+        $guardar_productos->Descripcion_producto=$request->Descripcion_producto;
+        $guardar_productos->save();
+        return response(["data"=>"guardado exitosamente"]);
     }
 
     /**
@@ -69,7 +74,9 @@ class ProductosController extends Controller
      */
     public function update(Request $request, Productos $productos)
     {
-        //
+        $actualizar=$productos;
+        $actualizar->Descripcion=$request->Descripcion;
+        $actualizar->save();
     }
 
     /**
@@ -80,6 +87,8 @@ class ProductosController extends Controller
      */
     public function destroy(Productos $productos)
     {
-        //
+        $productos=productos::findOrFail($productos);
+        $productos->detele();
+        return response(["data"=> "Eliminado exitosamente"]);
     }
 }

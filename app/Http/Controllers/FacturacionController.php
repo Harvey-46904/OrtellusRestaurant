@@ -14,7 +14,12 @@ class FacturacionController extends Controller
      */
     public function index()
     {
-        //
+        $guardar_facturacion=new Facturacion;
+        $guardar_facturacion->Nombre_producto=$request->Nombre_producto;
+        $guardar_facturacion->Fecha_producto=$request->Fecha_producto;
+        $guardar_facturacion->Descripcion_producto=$request->Descripcion_producto;
+        $guardar_facturacion->save();
+        return response(["data"=>"guardado exitosamente"]);
     }
 
     /**
@@ -69,7 +74,11 @@ class FacturacionController extends Controller
      */
     public function update(Request $request, Facturacion $facturacion)
     {
-        //
+        $actualizar=$productos;
+        $actualizar_facturacion->Nombre_producto=$request->Nombre_producto;
+        $actualizar_facturacion->Fecha_producto=$request->Fecha_producto;
+        $actualizar_facturacion->Descripcion_producto=$request->Descripcion_producto;
+        $actualizar->save();
     }
 
     /**
@@ -80,6 +89,8 @@ class FacturacionController extends Controller
      */
     public function destroy(Facturacion $facturacion)
     {
-        //
+        $facturacion=facturacion::findOrFail($facturacion);
+        $facturacion->detele();
+        return response(["data"=> "Eliminado exitosamente"]);
     }
 }
