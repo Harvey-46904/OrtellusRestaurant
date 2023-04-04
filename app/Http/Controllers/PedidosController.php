@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\support\Facades\Validator;
 use App\Models\pedidos;
 use Illuminate\Http\Request;
 
@@ -37,6 +37,44 @@ class PedidosController extends Controller
      */
     public function store(Request $request)
     {
+        $guardar = [
+            'nombre_pedido' => 'required | string',
+            'fecha_pedido' => 'required | date',
+            'precio' => 'required | string',
+            'descuento' => 'required | string',
+            'envio' => 'required | string',
+            'tipo_pago' => 'required | string',
+            'estado' => 'required | string',
+            'direccion' => 'required | string',
+            'telefono' => 'required | string',
+            'descripcion' => 'required | string',
+            
+            
+         ];
+
+         $messages = [
+            'nombre_pedido'  => 'The :attribute and :other must match.',
+            'fecha_pedido' => 'The :attribute must be exactly :size.',
+            'precio' => 'The :attribute value :input is not between :min - :max.',
+            'descuento' => 'The :attribute value :input is not between :min - :max.',
+            'envio' => 'The :attribute value :input is not between :min - :max.',
+            'tipo_pago' => 'The :attribute value :input is not between :min - :max.',
+            'estado' => 'The :attribute value :input is not between :min - :max.',
+            'direccion' => 'The :attribute value :input is not between :min - :max.',
+            'telefono' => 'The :attribute value :input is not between :min - :max.',
+            'descripcion' => 'The :attribute value :input is not between :min - :max.',
+           
+            
+        ];
+       
+       
+
+        $validator = Validator::make($request->all(), $guardar,  $messages);
+       
+        if ($validator->fails()) {
+            return response(['Error de los datos'=>$validator->errors()]);
+        }
+        else{
         $guardar_pedido= new pedidos();
         $guardar_pedido->nombre_pedido=$request->nombre_pedido;
         $guardar_pedido->fecha_pedido=$request->fecha_pedido;
@@ -50,7 +88,7 @@ class PedidosController extends Controller
         $guardar_pedido->descripcion=$request->descripcion;
         $guardar_pedido->save();
         return response (["data"=>"registro gusrdado exitosamente"]);
-
+        }
     }
 
     /**
@@ -87,6 +125,44 @@ class PedidosController extends Controller
     public function update(Request $request, $pedidos)
     {
         //
+        $guardar = [
+            'nombre_pedido' => 'required | string',
+            'fecha_pedido' => 'required | date',
+            'precio' => 'required | string',
+            'descuento' => 'required | string',
+            'envio' => 'required | string',
+            'tipo_pago' => 'required | string',
+            'estado' => 'required | string',
+            'direccion' => 'required | string',
+            'telefono' => 'required | string',
+            'descripcion' => 'required | string',
+            
+            
+         ];
+
+         $messages = [
+            'nombre_pedido'  => 'The :attribute and :other must match.',
+            'fecha_pedido' => 'The :attribute must be exactly :size.',
+            'precio' => 'The :attribute value :input is not between :min - :max.',
+            'descuento' => 'The :attribute value :input is not between :min - :max.',
+            'envio' => 'The :attribute value :input is not between :min - :max.',
+            'tipo_pago' => 'The :attribute value :input is not between :min - :max.',
+            'estado' => 'The :attribute value :input is not between :min - :max.',
+            'direccion' => 'The :attribute value :input is not between :min - :max.',
+            'telefono' => 'The :attribute value :input is not between :min - :max.',
+            'descripcion' => 'The :attribute value :input is not between :min - :max.',
+           
+            
+        ];
+       
+       
+
+        $validator = Validator::make($request->all(), $guardar,  $messages);
+       
+        if ($validator->fails()) {
+            return response(['Error de los datos'=>$validator->errors()]);
+        }
+        else{
         $pedidos=pedidos::findOrFail($pedidos);
         $pedidos->nombre_pedido=$request->nombre_pedido;
         $pedidos->fecha_pedido=$request->fecha_pedido;
@@ -100,6 +176,7 @@ class PedidosController extends Controller
         $pedidos->descripcion=$request->descripcion;
         $pedidos->save();
         return response (["data"=>"datos actualizados"]);
+        }
     }
 
     /**

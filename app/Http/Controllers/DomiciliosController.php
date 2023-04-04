@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\support\Facades\Validator;
 use App\Models\domicilios;
 use Illuminate\Http\Request;
 
@@ -36,6 +36,30 @@ class DomiciliosController extends Controller
      */
     public function store(Request $request)
     {
+        $guardar = [
+            'nombre' => 'required | string',
+            'direccion_domicilio' => 'required | string',
+            'numero_factura' => 'required | string',
+            'feha_domicilio' => 'required | date',
+            'tipo_comida' => 'required | string',
+         ];
+
+         $messages = [
+            'nombre'  => 'The :attribute and :other must match.',
+            'direccion_domicilio' => 'The :attribute must be exactly :size.',
+            'numero_factura' => 'The :attribute value :input is not between :min - :max.',
+            'feha_domicilio'=> 'The :attribute must be one of the following types: :values',
+            'tipo_comida'=> 'The :attribute must be one of the following types: :values',
+        ];
+       
+       
+
+        $validator = Validator::make($request->all(), $guardar,  $messages);
+       
+        if ($validator->fails()) {
+            return response(['Error de los datos'=>$validator->errors()]);
+        }
+        else{
         $guardar_domicilio=new domicilios();
         $guardar_domicilio->nombre=$request->nombre;
         $guardar_domicilio->direccion_domicilio=$request->direccion_domicilio;
@@ -44,6 +68,7 @@ class DomiciliosController extends Controller
         $guardar_domicilio->tipo_comida=$request->tipo_comida;
         $guardar_domicilio->save();
         return response (["data"=>"registro guardado"]);
+        }
     }
 
     /**
@@ -78,8 +103,32 @@ class DomiciliosController extends Controller
      */
     public function update(Request $request, $domicilios)
     {
-        
+        $guardar = [
+            'nombre' => 'required | string',
+            'direccion_domicilio' => 'required | string',
+            'numero_factura' => 'required | string',
+            'feha_domicilio' => 'required | date',
+            'tipo_comida' => 'required | string',
+         ];
+
+         $messages = [
+            'nombre'  => 'The :attribute and :other must match.',
+            'direccion_domicilio' => 'The :attribute must be exactly :size.',
+            'numero_factura' => 'The :attribute value :input is not between :min - :max.',
+            'feha_domicilio'=> 'The :attribute must be one of the following types: :values',
+            'tipo_comida'=> 'The :attribute must be one of the following types: :values',
+        ];
+       
+       
+
+        $validator = Validator::make($request->all(), $guardar,  $messages);
+       
+        if ($validator->fails()) {
+            return response(['Error de los datos'=>$validator->errors()]);
+        }
+        else{
         $domicilios=domicilios::findOrFail($domicilios);
+        
         $domicilios->nombre=$request->nombre;
         $domicilios->direccion_domicilio=$request->direccion_domicilio;
         $domicilios->numero_factura=$request->numero_factura;
@@ -87,6 +136,7 @@ class DomiciliosController extends Controller
         $domicilios->tipo_comida=$request->tipo_comida;
         $domicilios->save();
         return response (["data"=>"registro actualizado"]);
+        }
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\support\Facades\Validator;
 use App\Models\Facturacion;
 use Illuminate\Http\Request;
 
@@ -36,6 +36,30 @@ class FacturacionController extends Controller
      */
     public function store(Request $request)
     {
+        $guardar = [
+            'Cliente' => 'required | string',
+            'Producto' => 'required | string',
+            'total' => 'required | string',
+            'mesa' => 'required | string',
+            
+         ];
+
+         $messages = [
+            'Cliente'  => 'The :attribute and :other must match.',
+            'Producto' => 'The :attribute must be exactly :size.',
+            'total' => 'The :attribute value :input is not between :min - :max.',
+            'mesa'=> 'The :attribute must be one of the following types: :values',
+            
+        ];
+       
+       
+
+        $validator = Validator::make($request->all(), $guardar,  $messages);
+       
+        if ($validator->fails()) {
+            return response(['Error de los datos'=>$validator->errors()]);
+        }
+        else{
         $guardar_facturacion=new Facturacion;
         $guardar_facturacion->Cliente=$request->Cliente;
         $guardar_facturacion->Producto=$request->Producto;
@@ -43,6 +67,7 @@ class FacturacionController extends Controller
         $guardar_facturacion->mesa=$request->mesa;
         $guardar_facturacion->save();
         return response(["data"=>"guardado exitosamente"]);
+        }
     }
 
     /**
@@ -77,6 +102,30 @@ class FacturacionController extends Controller
      */
     public function update(Request $request, $facturacion)
     {
+        $guardar = [
+            'Cliente' => 'required | string',
+            'Producto' => 'required | string',
+            'total' => 'required | string',
+            'mesa' => 'required | string',
+            
+         ];
+
+         $messages = [
+            'Cliente'  => 'The :attribute and :other must match.',
+            'Producto' => 'The :attribute must be exactly :size.',
+            'total' => 'The :attribute value :input is not between :min - :max.',
+            'mesa'=> 'The :attribute must be one of the following types: :values',
+            
+        ];
+       
+       
+
+        $validator = Validator::make($request->all(), $guardar,  $messages);
+       
+        if ($validator->fails()) {
+            return response(['Error de los datos'=>$validator->errors()]);
+        }
+        else{
         $actualizar=Facturacion::findOrFail($facturacion);
         $actualizar->Cliente=$request->Cliente;
         $actualizar->Producto=$request->Producto;
@@ -84,6 +133,7 @@ class FacturacionController extends Controller
         $actualizar->mesa=$request->mesa;
         $actualizar->save();
         return response (["data"=>"datos actualizados"]);
+        }
     }
 
     /**

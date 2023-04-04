@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\support\Facades\Validator;
 use App\Models\restaurante;
 use Illuminate\Http\Request;
 
@@ -37,11 +37,38 @@ class RestauranteController extends Controller
      */
     public function store(Request $request)
     {
+        $guardar = [
+            'nombre' => 'required | string',
+            'direccion' => 'required | string',
+            
+            
+            
+            
+         ];
+
+         $messages = [
+            'nombre'  => 'The :attribute and :other must match.',
+            'direccion' => 'The :attribute must be exactly :size.',
+            
+            
+           
+            
+        ];
+       
+       
+
+        $validator = Validator::make($request->all(), $guardar,  $messages);
+       
+        if ($validator->fails()) {
+            return response(['Error de los datos'=>$validator->errors()]);
+        }
+        else{
         $guardar_restaurante=new restaurante;
         $guardar_restaurante->nombre=$request->nombre;
         $guardar_restaurante->direccion=$request->direccion;
         $guardar_restaurante->save();
         return response (["data"=>"registro guardado exitosamente"]);
+        }
     }
 
     /**
@@ -77,11 +104,38 @@ class RestauranteController extends Controller
      */
     public function update(Request $request, $restaurante)
     {
+        $guardar = [
+            'nombre' => 'required | string',
+            'direccion' => 'required | string',
+            
+            
+            
+            
+         ];
+
+         $messages = [
+            'nombre'  => 'The :attribute and :other must match.',
+            'direccion' => 'The :attribute must be exactly :size.',
+            
+            
+           
+            
+        ];
+       
+       
+
+        $validator = Validator::make($request->all(), $guardar,  $messages);
+       
+        if ($validator->fails()) {
+            return response(['Error de los datos'=>$validator->errors()]);
+        }
+        else{
             $restaurante=restaurante::FindOrFail($restaurante);
             $restaurante->nombre=$request->nombre;
             $restaurante->direccion=$request->direccion;
             $restaurante->save();
             return response (["data"=>"datos actualizados"]);
+        }
 
     }
 

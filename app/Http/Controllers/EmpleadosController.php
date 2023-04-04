@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\support\Facades\Validator;
 use App\Models\empleados;
 use Illuminate\Http\Request;
 
@@ -36,6 +36,34 @@ class EmpleadosController extends Controller
      */
     public function store(Request $request)
     {
+        $guardar = [
+            'nombre' => 'required | string',
+            'cedula' => 'required | string',
+            'telefono' => 'required | string',
+            'cargo' => 'required | string',
+            'direccion' => 'required | string',
+            'email' => 'required | string',
+            'fecha_ingreso' => 'required | date',
+         ];
+
+         $messages = [
+            'nombre'  => 'The :attribute and :other must match.',
+            'cedula' => 'The :attribute must be exactly :size.',
+            'telefono' => 'The :attribute value :input is not between :min - :max.',
+            'cargo'=> 'The :attribute must be one of the following types: :values',
+            'direccion'=> 'The :attribute must be one of the following types: :values',
+            'email'=> 'The :attribute must be one of the following types: :values',
+            'fecha_ingreso'=> 'The :attribute must be one of the following types: :values',
+        ];
+       
+       
+
+        $validator = Validator::make($request->all(), $guardar,  $messages);
+       
+        if ($validator->fails()) {
+            return response(['Error de los datos'=>$validator->errors()]);
+        }
+        else{
         $guardar_empleados = new empleados;
         $guardar_empleados->nombre=$request->nombre;
         $guardar_empleados->cedula=$request->cedula;
@@ -46,6 +74,7 @@ class EmpleadosController extends Controller
         $guardar_empleados->fecha_ingreso=$request->fecha_ingreso;
         $guardar_empleados->save();
         return response (["data"=>"registro guardado exitosamente"]);
+        }
     }
 
     /**
@@ -84,6 +113,34 @@ class EmpleadosController extends Controller
     public function update(Request $request, $empleados)
     {
         //actualizar
+        $guardar = [
+            'nombre' => 'required | string',
+            'cedula' => 'required | string',
+            'telefono' => 'required | string',
+            'cargo' => 'required | string',
+            'direccion' => 'required | string',
+            'email' => 'required | string',
+            'fecha_ingreso' => 'required | date',
+         ];
+
+         $messages = [
+            'nombre'  => 'The :attribute and :other must match.',
+            'cedula' => 'The :attribute must be exactly :size.',
+            'telefono' => 'The :attribute value :input is not between :min - :max.',
+            'cargo'=> 'The :attribute must be one of the following types: :values',
+            'direccion'=> 'The :attribute must be one of the following types: :values',
+            'email'=> 'The :attribute must be one of the following types: :values',
+            'fecha_ingreso'=> 'The :attribute must be one of the following types: :values',
+        ];
+       
+       
+
+        $validator = Validator::make($request->all(), $guardar,  $messages);
+       
+        if ($validator->fails()) {
+            return response(['Error de los datos'=>$validator->errors()]);
+        }
+        else{
         $empleados=empleados::findOrfail($empleados);
         $empleados->nombre=$request->nombre;
         $empleados->cedula=$request->cedula;
@@ -94,7 +151,7 @@ class EmpleadosController extends Controller
         $empleados->fecha_ingreso=$request->fecha_ingreso;
         $empleados->save();
         return response (["data"=>"datos actualizados"]);
-
+        }
 
 
 

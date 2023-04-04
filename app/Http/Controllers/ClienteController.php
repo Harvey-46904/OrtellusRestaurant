@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
-
+use Illuminate\support\Facades\Validator;
 class ClienteController extends Controller
 {
     /**
@@ -16,7 +16,7 @@ class ClienteController extends Controller
     {
        $consulta=Cliente::all();
 
-        return response(["data"=>$consulta]);
+        return response (["data"=>$consulta]);
     }
 
     /**
@@ -34,6 +34,31 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
+       
+        $guardar = [
+            'Nombre_Completo' => 'required | string',
+            'Cedula' => 'required | string',
+            'Telefono' => 'required | string',
+            'Email' => 'required | string',
+            'Direccion' => 'required | string',
+         ];
+
+         $messages = [
+            'Nombre_Completo'  => 'The :attribute and :other must match.',
+            'Cedula' => 'The :attribute must be exactly :size.',
+            'Telefono' => 'The :attribute value :input is not between :min - :max.',
+            'Email'=> 'The :attribute must be one of the following types: :values',
+            'Direccion'=> 'The :attribute must be one of the following types: :values',
+        ];
+       
+       
+
+        $validator = Validator::make($request->all(), $guardar,  $messages);
+       
+        if ($validator->fails()) {
+            return response(['Error de los datos'=>$validator->errors()]);
+        }
+        else{
         $guardar_cliente=new Cliente;
         $guardar_cliente->Nombre_Completo=$request->Nombre_Completo;
         $guardar_cliente->Cedula=$request->Cedula;
@@ -42,6 +67,8 @@ class ClienteController extends Controller
         $guardar_cliente->Direccion=$request->Direccion;
         $guardar_cliente->save();
         return response(["data"=>"guardado exitosamente"]);
+    }
+    
     }
 
     /**
@@ -72,7 +99,30 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $cliente)
     {
-        
+        $guardar = [
+            'Nombre_Completo' => 'required | string',
+            'Cedula' => 'required | string',
+            'Telefono' => 'required | string',
+            'Email' => 'required | string',
+            'Direccion' => 'required | string',
+         ];
+
+         $messages = [
+            'Nombre_Completo'  => 'The :attribute and :other must match.',
+            'Cedula' => 'The :attribute must be exactly :size.',
+            'Telefono' => 'The :attribute value :input is not between :min - :max.',
+            'Email'=> 'The :attribute must be one of the following types: :values',
+            'Direccion'=> 'The :attribute must be one of the following types: :values',
+        ];
+       
+       
+
+        $validator = Validator::make($request->all(), $guardar,  $messages);
+        if ($validator->fails()) {
+            return response(['Error de los datos'=>$validator->errors()]);
+        }
+        else{
+
         $actualizar_cliente=Cliente::findOrFail($cliente);
         
         $actualizar_cliente->Nombre_Completo=$request->Nombre_Completo;
@@ -83,6 +133,7 @@ class ClienteController extends Controller
         $actualizar_cliente->save();
         return response(["data"=>"datos actualizados"]);
     }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -92,7 +143,7 @@ class ClienteController extends Controller
      */
     public function destroy($cliente)
     {
-        $cliente=cliente::findOrFail($cliente);
+        $cliente=cliente::findOrFail($cliente);                          
         $cliente->delete();
         return response(["data"=> "Eliminado exitosamente"]);
     }
