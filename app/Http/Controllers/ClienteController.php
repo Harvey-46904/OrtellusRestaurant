@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class ClienteController extends Controller
 {
     /**
@@ -34,14 +34,42 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        $guardar_cliente=new Cliente;
-        $guardar_cliente->Nombre_Completo=$request->Nombre_Completo;
-        $guardar_cliente->Cedula=$request->Cedula;
-        $guardar_cliente->Telefono=$request->Telefono;
-        $guardar_cliente->Email=$request->Email;
-        $guardar_cliente->Direccion=$request->Direccion;
-        $guardar_cliente->save();
-        return response(["data"=>"guardado exitosamente"]);
+
+        $rules = [
+            'Nombre_Completo' => 'required|string',
+            'Cedula' => 'required|string',
+            'Telefono' => 'required|string',
+            'Email' => 'required|email',
+            'Direccion' => 'required|string'
+        ];
+
+
+        $messages = [
+            'required' => 'The :attribute es requerido',
+            'Nombre_Completo' => 'falta nombre',
+            'Cedula' => 'falta cedula',
+            'Telefono' => 'falta telefono',
+            'Email' => 'falta email',
+            'Direccion' => 'falta direccion',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return response(["data"=>$validator->errors()]);
+        } else {
+            $guardar_cliente=new Cliente;
+            $guardar_cliente->Nombre_Completo=$request->Nombre_Completo;
+            $guardar_cliente->Cedula=$request->Cedula;
+            $guardar_cliente->Telefono=$request->Telefono;
+            $guardar_cliente->Email=$request->Email;
+            $guardar_cliente->Direccion=$request->Direccion;
+            $guardar_cliente->save();
+            return response(["data"=>"guardado exitosamente"]);
+        }
+        
+      
+        
     }
 
     /**
