@@ -67,7 +67,7 @@ class DomiciliosController extends Controller
         $guardar_domicilio->feha_domicilio=$request->feha_domicilio;
         $guardar_domicilio->tipo_comida=$request->tipo_comida;
         $guardar_domicilio->save();
-        return response (["data"=>"registro guardado"]);
+        return self::index();
         }
     }
 

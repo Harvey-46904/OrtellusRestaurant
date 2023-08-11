@@ -67,7 +67,8 @@ class RestauranteController extends Controller
         $guardar_restaurante->nombre=$request->nombre;
         $guardar_restaurante->direccion=$request->direccion;
         $guardar_restaurante->save();
-        return response (["data"=>"registro guardado exitosamente"]);
+
+        return self::index();
         }
     }
 

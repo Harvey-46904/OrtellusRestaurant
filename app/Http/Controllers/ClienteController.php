@@ -66,7 +66,7 @@ class ClienteController extends Controller
         $guardar_cliente->Email=$request->Email;
         $guardar_cliente->Direccion=$request->Direccion;
         $guardar_cliente->save();
-        return response(["data"=>"guardado exitosamente"]);
+        return self::index();
     }
     
     }
