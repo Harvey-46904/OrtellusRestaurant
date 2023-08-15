@@ -67,7 +67,7 @@ class ProductosController extends Controller
         $guardar_productos->Fecha_producto=$request->Fecha_producto;
         $guardar_productos->Descripcion_producto=$request->Descripcion_producto;
         $guardar_productos->save();
-        return response(["data"=>"guardado exitosamente"]);
+        return self::index();
         }
     }
 

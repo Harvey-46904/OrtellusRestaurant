@@ -65,7 +65,7 @@ class MesasController extends Controller
         $guardar_mesa->Registrar_mesa=$request->Registrar_mesa;
         $guardar_mesa->Observacion=$request->Observacion;
         $guardar_mesa->save();
-        return response(["data"=>"guardado exitosamente"]);
+        return self::index();
         }
     }
 

@@ -66,7 +66,7 @@ class FacturacionController extends Controller
         $guardar_facturacion->total=$request->total;
         $guardar_facturacion->mesa=$request->mesa;
         $guardar_facturacion->save();
-        return response(["data"=>"guardado exitosamente"]);
+        return self::index();
         }
     }
 

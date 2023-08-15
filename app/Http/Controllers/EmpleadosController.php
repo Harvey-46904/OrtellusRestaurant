@@ -73,7 +73,7 @@ class EmpleadosController extends Controller
         $guardar_empleados->email=$request->email;
         $guardar_empleados->fecha_ingreso=$request->fecha_ingreso;
         $guardar_empleados->save();
-        return response (["data"=>"registro guardado exitosamente"]);
+        return self::index();
         }
     }
 

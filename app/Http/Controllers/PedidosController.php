@@ -87,7 +87,7 @@ class PedidosController extends Controller
         $guardar_pedido->telefono=$request->telefono;
         $guardar_pedido->descripcion=$request->descripcion;
         $guardar_pedido->save();
-        return response (["data"=>"registro gusrdado exitosamente"]);
+        return self::index();
         }
     }
 
