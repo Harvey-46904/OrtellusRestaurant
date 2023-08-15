@@ -16,7 +16,7 @@ class ClienteController extends Controller
     {
        $consulta=Cliente::all();
 
-        return response (["data"=>$consulta]);
+        return response (["data"=> $consulta]);
     }
 
     /**

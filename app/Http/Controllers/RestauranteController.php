@@ -16,7 +16,7 @@ class RestauranteController extends Controller
     {
         //
         $consulta = restaurante::all();
-        return response (["data"=> $consulta]);
+        return response ([ "data"=> $consulta]); 
     }
 
     /**
