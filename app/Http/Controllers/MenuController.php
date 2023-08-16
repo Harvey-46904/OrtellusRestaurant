@@ -39,19 +39,12 @@ class MenuController extends Controller
         $guardar = [
             'Id_Receta' => 'required | integer',
             'Precio' => 'required | integer',
-           
-            
-            
-         ];
+                ];
 
          $messages = [
             'Id_Receta'  => 'The :attribute and :other must match.',
             'Precio' => 'The :attribute must be exactly :size.',
-            
-        ];
-       
-       
-
+                    ];
         $validator = Validator::make($request->all(), $guardar,  $messages);
        
         if ($validator->fails()) {
@@ -101,16 +94,12 @@ class MenuController extends Controller
         $guardar = [
             'Id_Receta' => 'required | integer',
             'Precio' => 'required | integer',
-           
-            
-            
-         ];
+                    ];
 
          $messages = [
             'Id_Receta'  => 'The :attribute and :other must match.',
             'Precio' => 'The :attribute must be exactly :size.',
-            
-        ];
+                    ];
         $validator = Validator::make($request->all(), $guardar,  $messages);
        
         if ($validator->fails()) {

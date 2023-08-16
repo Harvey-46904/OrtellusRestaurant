@@ -25,5 +25,9 @@ Route::resource('factura','FacturacionController',['except'=>['create','edit']])
 Route::resource('mesa','MesasController',['except'=>['create','edit']]);
 Route::resource('pedido','PedidosController',['except'=>['create','edit']]);
 Route::resource('producto','ProductosController',['except'=>['create','edit']]);
+Route::resource('inventario','InventarioController',['except'=>['create','edit']]);
+Route::resource('receta','RecetaController',['except'=>['create','edit']]);
+Route::resource('menu','MenuController',['except'=>['create','edit']]);
+
 
 
