@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Inventario;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Validator;
+use DB;
 class InventarioController extends Controller
 {
     /**
@@ -15,6 +16,12 @@ class InventarioController extends Controller
     public function index()
     {
         $consulta=Inventario::all();
+        return response (["data"=> $consulta]);
+    }
+    public function inventario_label(){
+        $consulta=DB::table("inventarios")
+        ->select("id AS value","Nombre_Producto AS label")
+        ->get();
         return response (["data"=> $consulta]);
     }
 

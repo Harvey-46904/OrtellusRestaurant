@@ -28,6 +28,6 @@ Route::resource('producto','ProductosController',['except'=>['create','edit']]);
 Route::resource('inventario','InventarioController',['except'=>['create','edit']]);
 Route::resource('receta','RecetaController',['except'=>['create','edit']]);
 Route::resource('menu','MenuController',['except'=>['create','edit']]);
-
+Route::get("inventario_label","InventarioController@inventario_label");
 
 
