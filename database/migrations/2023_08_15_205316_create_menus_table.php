@@ -17,6 +17,7 @@ class CreateMenusTable extends Migration
             $table->id();
             $table->integer("Id_Receta");
             $table->integer("Precio");
+            $table->text("descripcion");
             $table->timestamps();
         });
     }
