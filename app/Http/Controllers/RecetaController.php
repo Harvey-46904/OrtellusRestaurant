@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Receta;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Validator;
+use DB;
+use App\Models\Inventario;
 class RecetaController extends Controller
 {
     /**
@@ -140,4 +142,43 @@ class RecetaController extends Controller
         $receta->delete();
         return response(["data"=> "Eliminado exitosamente"]);
     }
+
+    //public function Recetabables () {
+      //  $consultalable= DB::table('recetas')->select("id AS value","Nombre_Plato AS label")
+       // ->get();
+        //return response(["data"=>$consultalable]);
+    //}
+
+    public function Recetabables() {
+        $consultaLabels = DB::table('recetas')->select("id AS value", "Nombre_Plato AS label", "Ingredientes")
+            ->get();
+        // pluck se utiliza para traer valores especificos de una columnas de valores
+        // de una tabla
+        $ingredientes = Inventario::pluck('Nombre_Producto', 'id');
+        //busca del array ingredientes los numeros para relacionar
+        //y los guarda en buscarmike
+        $resultado = $consultaLabels->map(function ($buscarmike) use ($ingredientes) {
+            //aqui con json se decodifica el json a un arreglo esto crea un arreglo de ids
+            //de ingredientes que estaban almacenados en el json
+            $ingredientesIds = json_decode($buscarmike->Ingredientes, true);
+            //aqui creo una varable vacia
+            $nombresIngredientes = [];
+            
+            foreach ($ingredientesIds as $ingredienteId) {
+                //si el id del ingrediente existe en el arreglo $ingredientes
+                //se agrega a $nombresIngredientes
+                if (isset($ingredientes[$ingredienteId])) {
+                    $nombresIngredientes[] = $ingredientes[$ingredienteId];
+                }
+            }
+    
+            $buscarmike->mike_Ingrediente = $nombresIngredientes;
+    
+            return $buscarmike;
+        });
+    
+        return response(["data" => $resultado]);
+    }
+    
+
 }

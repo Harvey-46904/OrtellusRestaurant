@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Validator;
+use DB;
 class MenuController extends Controller
 {
     /**
