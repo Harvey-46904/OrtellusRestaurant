@@ -98,11 +98,14 @@ class MenuController extends Controller
         $guardar = [
             'Id_Receta' => 'required | integer',
             'Precio' => 'required | integer',
+            'descripcion'=>'required | string'
                     ];
 
          $messages = [
             'Id_Receta'  => 'The :attribute and :other must match.',
             'Precio' => 'The :attribute must be exactly :size.',
+            'descripcion'=> 'The :attribute must be exactly :size.'
+            
                     ];
         $validator = Validator::make($request->all(), $guardar,  $messages);
        
@@ -113,6 +116,7 @@ class MenuController extends Controller
         $actualizar_menu=Menu::findOrFail($menu);
         $actualizar_menu->Id_Receta=$request->Id_Receta;
         $actualizar_menu->Precio=$request->Precio;
+        $actualizar_menu->descripcion=$request->descripcion;
         $actualizar_menu->save();
         return self::index();
     }

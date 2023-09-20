@@ -30,5 +30,15 @@ Route::resource('receta','RecetaController',['except'=>['create','edit']]);
 Route::resource('menu','MenuController',['except'=>['create','edit']]);
 Route::get("inventario_label","InventarioController@inventario_label");
 Route::get("receta_label","RecetaController@Recetabables");
+Route::get("receta_menu/{id}","RecetaController@obtenerRecetasConMenu");
+Route::get("recetaid","RecetaController@idreceta");
+Route::delete("deleteinventario/{inventario}","InventarioController@destroy");
+Route::delete("deletereceta/{receta}","RecetaController@destroy");
+Route::delete("deletemenu/{menu}","MenuController@destroy");
+Route::delete("deletemesa/{mesa}","MesasController@destroy");
+route::put("updatereceta/{upreceta}","RecetaController@update");
+route::put("updamenu/{upmenu}","MenuController@update");
+route::put("updamesa/{upmenu}","MesasController@update");
+route::put("updinveta/{upinveta}","InventarioController@update");
 
 

@@ -37,16 +37,19 @@ class RecetaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+    
     {
+
+        
         $guardar = [
             'Nombre_Plato' => 'required | string',
-            'Fotografia' => 'required | string',
+            'Fotografia' => 'required | image',
             'Ingredientes' => 'required | string',
             ];
 
          $messages = [
             'Nombre_Plato'  => 'The :attribute and :other must match.',
-            'Fotografia' => 'The :attribute must be exactly :size.',
+            'Fotografia' => 'The :attribute must be an image.',
             'Ingredientes' => 'The :attribute must be exactly :size.',
             
         ];
@@ -60,10 +63,24 @@ class RecetaController extends Controller
         }
         else{
         $guardar_receta=new Receta;
+        
+        
         $guardar_receta->Nombre_Plato=$request->Nombre_Plato;
-        $guardar_receta->Fotografia=$request->Fotografia;
+        
+        if ($request->hasFile('Fotografia') && $request->file('Fotografia')->isValid()){
+           
+            $file = $request->file('Fotografia');
+            $destinatario = 'receta_images/';
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $uploadSuccess = $request->file('Fotografia')->move($destinatario, $filename);
+            $guardar_receta->Fotografia=$destinatario . $filename;
+            
+        }
+       // $guardar_receta->Fotografia=$request->Fotografia;
         $guardar_receta->Ingredientes=$request->Ingredientes;
+        
         $guardar_receta->save();
+        
         return self::index();
     }
     }
@@ -98,38 +115,56 @@ class RecetaController extends Controller
      * @param  \App\Models\Receta  $receta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $receta)
-    {
-        $guardar = [
-            'Nombre_Plato' => 'required | string',
-            'Fotografia' => 'required | string',
-            'Ingredientes' => 'required | string',
-            ];
+    public function update(Request $request, $receta)
+{
+    // Obtener la receta actual
+    $actualizar_receta = Receta::findOrFail($receta);
+    
+    // Obtener la ubicación de la fotografía actual
+    $fotoActual = $actualizar_receta->Fotografia;
 
-         $messages = [
-            'Nombre_Plato'  => 'The :attribute and :other must match.',
-            'Fotografia' => 'The :attribute must be exactly :size.',
-            'Ingredientes' => 'The :attribute must be exactly :size.',
-            
-        ];
-       
-       
+    // Validar y actualizar la receta
+    $guardar = [
+        'Nombre_Plato' => 'nullable | string',
+        'Fotografia' => 'nullable | image',
+        'Ingredientes' => 'nullable | string',
+    ];
 
-        $validator = Validator::make($request->all(), $guardar,  $messages);
-       
-        if ($validator->fails()) {
-            return response(['Error de los datos'=>$validator->errors()]);
+    $messages = [
+        'Nombre_Plato' => 'The :attribute and :other must match.',
+        'Fotografia' => 'The :attribute must be an string.',
+        'Ingredientes' => 'The :attribute must be exactly :size.',
+    ];
+
+    $validator = Validator::make($request->all(), $guardar, $messages);
+
+    if ($validator->fails()) {
+        return response(['Error de los datos' => $validator->errors()]);
+    } else {
+        // Actualizar los campos de la receta
+        $actualizar_receta->Nombre_Plato = $request->Nombre_Plato;
+
+        if ($request->hasFile('Fotografia') && $request->file('Fotografia')->isValid()) {
+            // Subir la nueva fotografía
+            $file = $request->file('Fotografia');
+            $destinatario = 'receta_images/';
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $uploadSuccess = $request->file('Fotografia')->move($destinatario, $filename);
+            $actualizar_receta->Fotografia = $destinatario . $filename;
+
+            // Eliminar la fotografía anterior si existe
+            if (!empty($fotoActual) && file_exists(public_path($fotoActual))) {
+                unlink(public_path($fotoActual));
+            }
         }
-        else{
-        $actualizar_receta=Receta::findOrFail($receta);
-        $actualizar_receta->Nombre_Plato=$request->Nombre_Plato;
-        $actualizar_receta->Fotografia=$request->Fotografia;
-        $actualizar_receta->Ingredientes=$request->Ingredientes;
+
+        $actualizar_receta->Ingredientes = $request->Ingredientes;
+
         $actualizar_receta->save();
+
         return self::index();
     }
-    }
-
+}
     /**
      * Remove the specified resource from storage.
      *
@@ -178,6 +213,22 @@ class RecetaController extends Controller
         });
     
         return response(["data" => $resultado]);
+    }
+      public function obtenerRecetasConMenu($id){
+        $menu = $id;
+        $foto = DB::table('recetas')
+        ->join('menus', 'recetas.id', '=', 'menus.Id_Receta')
+        ->select('recetas.Fotografia','recetas.Nombre_Plato','menus.Precio', 'menus.descripcion')
+        ->where("menus.Id_Receta","=",$menu)
+        ->get();
+
+        return response  (["data"=>$foto]);
+    }
+
+    public function idreceta(){
+        
+        $recetas = DB::table('recetas')->select('id', 'Nombre_Plato')->get();
+        return response (["data"=>$recetas]);
     }
     
 
