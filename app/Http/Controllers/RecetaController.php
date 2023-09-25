@@ -172,10 +172,19 @@ class RecetaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy( $receta)
-    {
-        $receta=Receta::findOrFail($receta);                          
+    { $receta = Receta::findOrFail($receta);
+    
+        // Obtén la ruta completa de la fotografía actual
+        $fotoActual = public_path($receta->Fotografia);
+    
+        // Elimina la fotografía actual si existe
+        if (!empty($fotoActual) && file_exists($fotoActual)) {
+            unlink($fotoActual);
+        }
+    
         $receta->delete();
-        return response(["data"=> "Eliminado exitosamente"]);
+        
+        return response(["data" => "Eliminado exitosamente"]);
     }
 
     //public function Recetabables () {

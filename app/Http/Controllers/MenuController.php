@@ -118,7 +118,7 @@ class MenuController extends Controller
         $actualizar_menu->Precio=$request->Precio;
         $actualizar_menu->descripcion=$request->descripcion;
         $actualizar_menu->save();
-        return self::index();
+        //return self::index();
     }
     }
 
