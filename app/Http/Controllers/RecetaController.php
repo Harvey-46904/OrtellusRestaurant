@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Receta;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Validator;
+use DB;
 class RecetaController extends Controller
 {
     /**
@@ -139,5 +140,32 @@ class RecetaController extends Controller
         $receta=Receta::findOrFail($receta);                          
         $receta->delete();
         return response(["data"=> "Eliminado exitosamente"]);
+    }
+
+    public function receta_ingrediente(){
+        $inventario=DB::table("inventarios")->select("id","Nombre_Producto")->get();
+        $consultas=DB::table("recetas")->get();
+        $receta_ingrediente=array();
+       foreach ($consultas as $consulta) {
+            $ingredientesArray = json_decode($consulta->Ingredientes);
+            $ingredientes=array();
+            foreach ($ingredientesArray as $ingrediente) {
+                $prodcuto_inventario=self::obtenerNombreProducto($ingrediente,$inventario);
+                array_push($ingredientes,$prodcuto_inventario);
+            }
+            $producto = array("producto"=>$consulta->Nombre_Plato,"ingrediente"=>$ingredientes);
+            array_push($receta_ingrediente,$producto);
+       }
+       return response(["data"=>$receta_ingrediente]);
+       // return response(["data"=>$consultas]);
+    }
+
+    function obtenerNombreProducto($id, $productoArray) {
+        foreach ($productoArray as $producto) {
+            if ($producto->id === $id) {
+                return $producto->Nombre_Producto;
+            }
+        }
+        return "Producto no encontrado";
     }
 }
