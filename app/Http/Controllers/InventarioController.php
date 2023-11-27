@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Inventario;
 use Illuminate\Http\Request;
-use Illuminate\support\Facades\Validator;
+use Validator;
 use DB;
 class InventarioController extends Controller
 {

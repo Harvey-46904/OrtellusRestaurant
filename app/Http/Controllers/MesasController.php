@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mesas;
 use Illuminate\Http\Request;
-use Illuminate\support\Facades\Validator;
+use Validator;
 class MesasController extends Controller
 {
     /**

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Receta;
 use Illuminate\Http\Request;
-use Illuminate\support\Facades\Validator;
+use Validator;
 use DB;
 use App\Models\Inventario;
 class RecetaController extends Controller
